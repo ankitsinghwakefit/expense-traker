@@ -6,6 +6,8 @@ export function ExpenseInput({ addExpence }) {
   const [price, setPrice] = useState("");
   function callAddExpanse(e) {
     e.preventDefault();
+    if (!name) return;
+    if (!price) return;
     addExpence({ name, price: parseInt(price) });
     setName("");
     setPrice("");

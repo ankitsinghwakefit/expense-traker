@@ -1,20 +1,26 @@
 import s from "./style.module.css";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 
 export function ExpenseTotal(props) {
-  const [totalExp, setTotalExp] = useState(0);
-  const [rem, setRem] = useState(0);
+  // const [totalExp, setTotalExp] = useState(0);
+  // const [rem, setRem] = useState(0);
   const { expenseList, totalIncome } = useSelector((state) => state.EXPENSE);
-  console.log(expenseList, totalIncome);
-  useEffect(() => {
+  // useEffect(() => {
+  //   let total = 0;
+  //   expenseList.forEach((element) => {
+  //     total += element.price;
+  //   });
+  //   setTotalExp(total);
+  //   setRem(totalIncome - totalExp);
+  // }, [expenseList, totalIncome, totalExp]);
+  const [totalExp, rem] = useMemo(() => {
     let total = 0;
     expenseList.forEach((element) => {
       total += element.price;
     });
-    setTotalExp(total);
-    setRem(totalIncome - totalExp);
-  }, [expenseList, totalIncome, totalExp]);
+    return [total, totalIncome - total];
+  }, [expenseList, totalIncome]);
   return (
     <div>
       <div className="row">
